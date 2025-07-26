@@ -75,10 +75,10 @@ const QuiSommesNous = () => {
                   <Target className="h-8 w-8 text-primary-foreground" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-4">Notre mission</h3>
-                <p className="text-muted-foreground mb-4">
-                  SENGARMI est une initiative de l’entreprise AFRO BTECH, basée à Ziguinchor. Le projet a pour mission de recruter, former, placer et protéger les femmes et les hommes dans le secteur des services domestiques et d’entretien. En intégrant un dispositif d’assurance médicale et une assistance juridique, SENGARMI entend réformer le regard porté sur les agents de ménage et offrir un cadre structuré, sécurisé et digne.
+                <p className="text-muted-foreground mb-4 text-base leading-relaxed text-justify">
+                  SENGARMI est une initiative de l'entreprise AFRO BTECH, basée à Ziguinchor. Le projet a pour mission de recruter, former, placer et protéger les femmes et les hommes dans le secteur des services domestiques et d'entretien. En intégrant un dispositif d'assurance médicale et une assistance juridique, SENGARMI entend réformer le regard porté sur les agents de ménage et offrir un cadre structuré, sécurisé et digne.
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-base leading-relaxed text-justify">
                   Notre ambition : redonner à ce métier sa noblesse (Garmi = noble en Wolof) et impulser un développement durable, inclusif et local à Ziguinchor dans un premier temps, puis dans tout le pays.
                 </p>
               </CardContent>
@@ -90,32 +90,32 @@ const QuiSommesNous = () => {
                   <Heart className="h-8 w-8 text-accent-foreground" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-4">Notre vision</h3>
-                <p className="text-muted-foreground mb-4 font-semibold">
+                <p className="text-muted-foreground mb-4 text-base leading-relaxed text-justify font-semibold">
                   Notre vision pour le secteur et au-delà. Pionniers d'un avenir meilleur : ensemble, créons une vision commune.
                 </p>
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-bold text-foreground">La satisfaction client</h4>
-                    <p className="text-muted-foreground text-sm">
-                      Devenir la référence nationale en matière de placement de personnel domestique protégé, formé et digne. Chez SENGARMI, la satisfaction du client n’est pas un simple objectif commercial, c’est une responsabilité partagée entre l’agent, la structure et le partenaire d’accueil. Nous visons l’excellence dans le service rendu, car un client satisfait est le meilleur ambassadeur de notre modèle.
+                    <p className="text-muted-foreground text-base leading-relaxed text-justify">
+                      Devenir la référence nationale en matière de placement de personnel domestique protégé, formé et digne. Chez SENGARMI, la satisfaction du client n'est pas un simple objectif commercial, c'est une responsabilité partagée entre l'agent, la structure et le partenaire d'accueil. Nous visons l'excellence dans le service rendu, car un client satisfait est le meilleur ambassadeur de notre modèle.
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground">L’innovation</h4>
-                    <p className="text-muted-foreground text-sm">
-                      Faire du métier de ménager(e)(ère) un vrai emploi reconnu, structuré, encadré et valorisé. Mais il faut noter que l’innovation ne se fera pas simplement sur le plan technologique, elle est : humaine, sociale et organisationnelle. Nous innovons parce que le secteur dans lequel nous intervenons est souvent figé dans des pratiques informelles, archaïques ou injustes.
+                    <h4 className="font-bold text-foreground">L'innovation</h4>
+                    <p className="text-muted-foreground text-base leading-relaxed text-justify">
+                      Faire du métier de ménager(e)(ère) un vrai emploi reconnu, structuré, encadré et valorisé. Mais il faut noter que l'innovation ne se fera pas simplement sur le plan technologique, elle est : humaine, sociale et organisationnelle. Nous innovons parce que le secteur dans lequel nous intervenons est souvent figé dans des pratiques informelles, archaïques ou injustes.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-bold text-foreground">La durabilité</h4>
-                    <p className="text-muted-foreground text-sm">
-                      La durabilité ne se limite pas seulement à la longévité de notre activité. Elle est pour nous la création d’emplois stables, qui résistent au temps, à la précarité et à l’informel. Promouvoir un changement durable des mentalités, en valorisant ce métier.
+                    <p className="text-muted-foreground text-base leading-relaxed text-justify">
+                      La durabilité ne se limite pas seulement à la longévité de notre activité. Elle est pour nous la création d'emplois stables, qui résistent au temps, à la précarité et à l'informel. Promouvoir un changement durable des mentalités, en valorisant ce métier.
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground">L’adaptabilité</h4>
-                    <p className="text-muted-foreground text-sm">
-                      Nous rêvons d’un Sénégal où les <span className="font-semibold">Garmi</span> sont accueillis comme des alliés du bien-être, non comme des esclaves invisibles et insignifiants. L’adaptabilité est au cœur de notre démarche, car chaque foyer, chaque entreprise a des besoins spécifiques : nous adaptons le profil, les horaires et le type de service de chaque agent.
+                    <h4 className="font-bold text-foreground">L'adaptabilité</h4>
+                    <p className="text-muted-foreground text-base leading-relaxed text-justify">
+                      Nous rêvons d'un Sénégal où les <span className="font-semibold">Garmi</span> sont accueillis comme des alliés du bien-être, non comme des esclaves invisibles et insignifiants. L'adaptabilité est au cœur de notre démarche, car chaque foyer, chaque entreprise a des besoins spécifiques : nous adaptons le profil, les horaires et le type de service de chaque agent.
                     </p>
                   </div>
                 </div>

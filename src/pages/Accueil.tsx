@@ -30,8 +30,30 @@ import {
   Scissors
 } from "lucide-react";
 import { temoignages } from "@/data/temoignages";
+import { useEffect, useRef, useState } from "react";
 
 const Accueil = () => {
+  const [api, setApi] = useState<any>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (api) {
+        api.next();
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [api]);
+
   const services = [
     {
       icone: Home,
@@ -77,7 +99,7 @@ const Accueil = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-fade-in">
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
+              <h1 className="text-4xl lg:text-6xl font-bold text-primary leading-tight">
                 Sengarmi
               </h1>
               <p className="text-xl lg:text-2xl text-slogan font-medium">
@@ -89,24 +111,50 @@ const Accueil = () => {
                 avec excellence et professionnalisme.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="cta" size="lg" asChild>
+                <Button variant="default" size="lg" asChild>
                   <Link to="/notre-application">
                     <Download className="mr-2 h-5 w-5" />
                     Télécharger l'app
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
+                <Button variant="outline" size="lg" className="hover:bg-primary hover:text-primary-foreground hover:border-primary" asChild>
                   <Link to="/nos-services">Découvrir nos services</Link>
                 </Button>
               </div>
             </div>
             <div className="flex justify-center lg:justify-end">
-                <img 
-                  src="/img.png" 
-                  alt="Services SENGARMI"
-                  className="w-full max-w-5xl max-h-96 object-contain mx-auto"
-                />
-              </div>
+              <Carousel
+                opts={{
+                  align: "center",
+                  loop: true,
+                }}
+                className="w-full max-w-5xl"
+                setApi={setApi}
+              >
+                <CarouselContent>
+                  <CarouselItem>
+                    <div className="flex justify-center">
+                      <img 
+                        src="/img.png" 
+                        alt="Services SENGARMI"
+                        className="w-full max-h-96 object-contain mx-auto"
+                      />
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem>
+                    <div className="flex justify-center">
+                      <img 
+                        src="/logo.png" 
+                        alt="Logo SENGARMI"
+                        className="w-full max-h-96 object-contain mx-auto"
+                      />
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+                <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-background border-2 shadow-lg hover:bg-accent" />
+                <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-background border-2 shadow-lg hover:bg-accent" />
+              </Carousel>
+            </div>
           </div>
         </div>
       </section>
@@ -235,7 +283,7 @@ const Accueil = () => {
                 </li>
               </ul>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="cta" size="lg" asChild>
+                <Button variant="default" size="lg" asChild>
                   <Link to="/notre-application">
                     <Smartphone className="mr-2 h-5 w-5" />
                     En savoir plus
@@ -258,15 +306,15 @@ const Accueil = () => {
                     <div className="text-sm text-muted-foreground">Services diversifiés</div>
                   </div>
                   <div className="space-y-4 w-full">
-                    <button className="w-full flex items-center gap-3 bg-primary/10 hover:bg-primary/20 transition rounded-xl py-4 px-4 text-primary font-semibold text-base">
+                    <button className="w-full flex items-center gap-3 bg-primary/10 hover:bg-primary/20 transition rounded-xl py-4 px-4 text-primary font-semibold text-base cursor-default">
                       <Calendar className="h-5 w-5" />
                       Réserver un service
                     </button>
-                    <button className="w-full flex items-center gap-3 bg-accent/10 hover:bg-accent/20 transition rounded-xl py-4 px-4 text-accent font-semibold text-base">
+                    <button className="w-full flex items-center gap-3 bg-accent/10 hover:bg-accent/20 transition rounded-xl py-4 px-4 text-accent font-semibold text-base cursor-default">
                       <MapPin className="h-5 w-5" />
                       Suivi en temps réel
                     </button>
-                    <button className="w-full flex items-center gap-3 bg-secondary hover:bg-secondary/80 transition rounded-xl py-4 px-4 text-foreground font-semibold text-base">
+                    <button className="w-full flex items-center gap-3 bg-secondary hover:bg-secondary/80 transition rounded-xl py-4 px-4 text-foreground font-semibold text-base cursor-default">
                       <Smartphone className="h-5 w-5" />
                       Mes réservations
                     </button>
@@ -361,9 +409,9 @@ const Accueil = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              variant="outline" 
+              variant="default" 
               size="lg" 
-              className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              className="bg-primary text-primary-foreground hover:bg-white hover:text-primary border-2 border-primary hover:border-white"
               asChild
             >
               <Link to="/notre-application">

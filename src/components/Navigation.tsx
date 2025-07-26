@@ -21,7 +21,7 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-background shadow-card sticky top-0 z-50">
+    <header className="bg-primary shadow-card sticky top-0 z-50">
       <nav className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -38,10 +38,10 @@ const Navigation = () => {
               <Link
                 key={item.lien}
                 to={item.lien}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-sm font-medium transition-colors hover:text-accent ${
                   isActive(item.lien) 
-                    ? "text-primary border-b-2 border-primary" 
-                    : "text-foreground"
+                    ? "text-accent border-b-2 border-accent" 
+                    : "text-primary-foreground"
                 }`}
               >
                 {item.nom}
@@ -56,25 +56,25 @@ const Navigation = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="lg:hidden text-primary-foreground hover:text-accent hover:bg-accent/10"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
           </Button>
         </div>
 
         {/* Menu mobile */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-border">
+          <div className="lg:hidden border-t border-primary-foreground/20">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
                 <Link
                   key={item.lien}
                   to={item.lien}
-                  className={`block px-3 py-2 text-base font-medium transition-colors hover:text-primary ${
+                  className={`block px-3 py-2 text-base font-medium transition-colors hover:text-accent ${
                     isActive(item.lien) 
-                      ? "text-primary bg-primary/5" 
-                      : "text-foreground"
+                      ? "text-accent bg-accent/10" 
+                      : "text-primary-foreground"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
