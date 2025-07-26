@@ -16,6 +16,7 @@ import Contact from "./pages/Contact";
 import MentionsLegales from "./pages/MentionsLegales";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./ScrollToTop";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <ScrollToTopButton />
         <div className="min-h-screen flex flex-col">
           <Navigation />
           <main className="flex-1">

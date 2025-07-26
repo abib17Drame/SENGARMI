@@ -45,11 +45,14 @@ const Accueil = () => {
   }, [api]);
 
   useEffect(() => {
+    if (!api) return;
+
     const interval = setInterval(() => {
-      if (api) {
-        api.next();
-      }
-    }, 3000);
+      const currentIndex = api.selectedScrollSnap();
+      const totalSlides = api.slideNodes().length;
+      const nextIndex = (currentIndex + 1) % totalSlides;
+      api.scrollTo(nextIndex);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [api]);
@@ -127,26 +130,28 @@ const Accueil = () => {
                 opts={{
                   align: "center",
                   loop: true,
+                  skipSnaps: false,
+                  duration: 20,
                 }}
                 className="w-full max-w-5xl"
                 setApi={setApi}
               >
                 <CarouselContent>
                   <CarouselItem>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center items-center h-96">
                       <img 
                         src="/img.png" 
                         alt="Services SENGARMI"
-                        className="w-full max-h-96 object-contain mx-auto"
+                        className="max-w-full max-h-full object-contain"
                       />
                     </div>
                   </CarouselItem>
                   <CarouselItem>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center items-center h-96">
                       <img 
                         src="/logo.png" 
                         alt="Logo SENGARMI"
-                        className="w-full max-h-96 object-contain mx-auto"
+                        className="max-w-full max-h-full object-contain"
                       />
                     </div>
                   </CarouselItem>
@@ -283,7 +288,7 @@ const Accueil = () => {
                 </li>
               </ul>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="default" size="lg" asChild>
+                <Button variant="default" size="lg" className="hover:bg-white hover:text-primary border-2 border-primary hover:border-white transition-colors" asChild>
                   <Link to="/notre-application">
                     <Smartphone className="mr-2 h-5 w-5" />
                     En savoir plus
