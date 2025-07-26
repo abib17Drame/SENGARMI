@@ -26,6 +26,7 @@ Vous pouvez éditer ce projet avec votre IDE préféré.
 
 ## Déploiement
 
+Pour déployer ce projet, vous pouvez utiliser la plateforme de votre choix (Vercel, Netlify, etc.).
 
 ## Technologies utilisées
 
