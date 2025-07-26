@@ -2,6 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { 
   Sparkles, 
   Shield, 
   Clock, 
@@ -22,6 +29,7 @@ import {
   Wrench,
   Scissors
 } from "lucide-react";
+import { temoignages } from "@/data/temoignages";
 
 const Accueil = () => {
   const services = [
@@ -60,26 +68,7 @@ const Accueil = () => {
     }
   ];
 
-  const temoignages = [
-    {
-      nom: "BIB",
-      profession: "Particulier",
-      avis: "Le personnel spécialisé est exceptionnel ! Cuisiniers et aides-ménagères très compétents. Je recommande vivement.",
-      note: 5
-    },
-    {
-      nom: "BIB",
-      profession: "Directeur d'entreprise",
-      avis: "Services diversifiés parfaits : nettoyage, réceptionnistes, événementiel. L'application facilite tout.",
-      note: 5
-    },
-    {
-      nom: "BIB",
-      profession: "Particulier",
-      avis: "Le service 'Bon Linge' est excellent ! Lavage, repassage et couture de qualité. Très satisfait !",
-      note: 5
-    }
-  ];
+
 
   return (
     <div className="min-h-screen">
@@ -301,25 +290,55 @@ const Accueil = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            {temoignages.map((temoignage, index) => (
-              <Card key={index} className="animate-fade-in">
-                <CardContent className="p-6">
-                  <div className="flex mb-4">
-                    {[...Array(temoignage.note)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <blockquote className="text-muted-foreground mb-4 italic">
-                    "{temoignage.avis}"
-                  </blockquote>
-                  <div>
-                    <div className="font-semibold text-foreground">{temoignage.nom}</div>
-                    <div className="text-sm text-muted-foreground">{temoignage.profession}</div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-6xl mx-auto relative">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {temoignages.map((temoignage, index) => (
+                  <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                    <Card className="h-full animate-fade-in">
+                      <CardContent className="p-6 h-full flex flex-col">
+                        <div className="flex mb-4">
+                          {[...Array(temoignage.note)].map((_, i) => (
+                            <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                          ))}
+                        </div>
+                        <blockquote className="text-muted-foreground mb-4 italic flex-grow">
+                          "{temoignage.avis}"
+                        </blockquote>
+                        <div className="mt-auto">
+                          <div className="font-semibold text-foreground">{temoignage.nom}</div>
+                          <div className="text-sm text-muted-foreground">{temoignage.profession}</div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              
+              {/* Boutons de navigation - visibles sur tous les écrans */}
+              <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-background border-2 shadow-lg hover:bg-accent" />
+              <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-background border-2 shadow-lg hover:bg-accent" />
+              
+              {/* Indicateurs de position (points) */}
+              <div className="flex justify-center mt-6 space-x-2">
+                {temoignages.map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-2 h-2 rounded-full bg-muted hover:bg-primary transition-colors cursor-pointer"
+                    onClick={() => {
+                      // Logique pour naviguer vers le slide spécifique
+                      console.log(`Naviguer vers le témoignage ${index + 1}`);
+                    }}
+                  />
+                ))}
+              </div>
+            </Carousel>
           </div>
 
           <div className="text-center mt-12">

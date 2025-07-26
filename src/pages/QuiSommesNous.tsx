@@ -44,7 +44,12 @@ const QuiSommesNous = () => {
           <Card className="max-w-2xl mx-auto animate-fade-in">
             <CardContent className="text-center space-y-6">
               <h2 className="text-3xl font-bold text-foreground flex items-center gap-3 justify-center">
-                <BookOpen className="h-8 w-8 text-primary" />
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300"></div>
+                  <div className="relative bg-gradient-to-br from-primary to-accent p-3 rounded-xl shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                    <BookOpen className="h-8 w-8 text-white drop-shadow-sm" />
+                  </div>
+                </div>
                 Notre histoire
               </h2>
               <p className="text-lg text-muted-foreground">
