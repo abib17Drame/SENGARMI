@@ -36,10 +36,26 @@ import { temoignages } from "@/data/temoignages";
 import { getCarouselImages } from "@/data/carouselImages";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import { useEffect, useRef, useState } from "react";
+import { useCallback } from "react";
 
 const Accueil = () => {
   // Récupération des images du carousel depuis la structure de données
   const carouselImages = getCarouselImages();
+  
+  // État pour le carousel des témoignages
+  const [api, setApi] = useState<any>();
+  const [current, setCurrent] = useState(0);
+
+  // Défilement automatique du carousel des témoignages
+  useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [api]);
   
 
 
@@ -310,6 +326,7 @@ const Accueil = () => {
                 loop: true,
               }}
               className="w-full"
+              setApi={setApi}
             >
               <CarouselContent className="-ml-2 md:-ml-4">
                 {temoignages.map((temoignage, index) => (
