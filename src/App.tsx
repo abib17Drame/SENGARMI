@@ -18,38 +18,41 @@ import NotFound from "./pages/NotFound";
 import ScrollToTop from "./ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <ScrollToTopButton />
-        <div className="min-h-screen flex flex-col">
-          <Navigation />
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Accueil />} />
-              <Route path="/qui-sommes-nous" element={<QuiSommesNous />} />
-              <Route path="/nos-services" element={<NosServices />} />
-              <Route path="/nos-partenaires" element={<NosPartenaires />} />
-              <Route path="/temoignages" element={<Temoignages />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/notre-application" element={<NotreApplication />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/mentions-legales" element={<MentionsLegales />} />
-              <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <ScrollToTopButton />
+          <div className="min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Accueil />} />
+                <Route path="/qui-sommes-nous" element={<QuiSommesNous />} />
+                <Route path="/nos-services" element={<NosServices />} />
+                <Route path="/nos-partenaires" element={<NosPartenaires />} />
+                <Route path="/temoignages" element={<Temoignages />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/notre-application" element={<NotreApplication />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/mentions-legales" element={<MentionsLegales />} />
+                <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

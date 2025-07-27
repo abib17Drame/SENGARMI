@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle, MobileThemeToggle } from "@/components/ThemeToggle";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,20 +48,26 @@ const Navigation = () => {
                 {item.nom}
               </Link>
             ))}
+            <ThemeToggle />
             <Button variant="cta" size="sm" asChild>
               <Link to="/notre-application">Télécharger l'app</Link>
             </Button>
           </div>
 
-          {/* Menu burger mobile */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden text-primary-foreground hover:text-accent hover:bg-accent/10"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
-          </Button>
+          {/* Contrôles mobile */}
+          <div className="lg:hidden flex items-center space-x-2">
+            {/* Bouton de thème mobile */}
+            <MobileThemeToggle />
+            {/* Menu burger */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-primary-foreground hover:text-accent hover:bg-accent/10"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+            </Button>
+          </div>
         </div>
 
         {/* Menu mobile */}

@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Sun, Moon, Monitor } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
 
 const Footer = () => {
+  const { theme, resolvedTheme } = useTheme();
+
+  const getThemeIcon = () => {
+    if (theme === 'system') return Monitor;
+    return resolvedTheme === 'dark' ? Moon : Sun;
+  };
+
+  const getThemeText = () => {
+    if (theme === 'system') return 'Système';
+    return resolvedTheme === 'dark' ? 'Sombre' : 'Clair';
+  };
+
+  const ThemeIcon = getThemeIcon();
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 lg:px-8 py-12">
@@ -89,13 +104,19 @@ const Footer = () => {
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-90">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
             <p>&copy; 2025 Sengarmi. Tous droits réservés.</p>
-            <div className="flex space-x-4">
-              <Link to="/mentions-legales" className="hover:opacity-100 transition-opacity">
-                Mentions légales
-              </Link>
-              <Link to="/politique-confidentialite" className="hover:opacity-100 transition-opacity">
-                Politique de confidentialité
-              </Link>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 text-xs">
+                <ThemeIcon className="h-3 w-3" />
+                <span>Thème : {getThemeText()}</span>
+              </div>
+              <div className="flex space-x-4">
+                <Link to="/mentions-legales" className="hover:opacity-100 transition-opacity">
+                  Mentions légales
+                </Link>
+                <Link to="/politique-confidentialite" className="hover:opacity-100 transition-opacity">
+                  Politique de confidentialité
+                </Link>
+              </div>
             </div>
           </div>
         </div>

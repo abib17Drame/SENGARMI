@@ -140,8 +140,8 @@ const Accueil = () => {
                   <CarouselItem>
                     <div className="flex justify-center items-center h-96">
                       <img 
-                        src="/img.png" 
-                        alt="Services SENGARMI"
+                        src="/logo.png" 
+                        alt="Logo SENGARMI"
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
@@ -149,8 +149,8 @@ const Accueil = () => {
                   <CarouselItem>
                     <div className="flex justify-center items-center h-96">
                       <img 
-                        src="/logo.png" 
-                        alt="Logo SENGARMI"
+                        src="/img.png" 
+                        alt="Services SENGARMI"
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
@@ -189,8 +189,8 @@ const Accueil = () => {
                 cardStyle = "bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20";
                 iconStyle = "bg-accent/10 text-accent";
               } else if (service.titre === "Bon Linge") {
-                cardStyle = "bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200";
-                iconStyle = "bg-blue-100 text-blue-600";
+                cardStyle = "bg-gradient-to-br from-slogan/5 to-slogan/10 border-slogan/20";
+                iconStyle = "bg-slogan/10 text-slogan";
               }
               return (
                 <Card key={index} className={`group hover:shadow-xl hover:scale-105 transition-all duration-300 animate-fade-in border-2 ${cardStyle}`}>
