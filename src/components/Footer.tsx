@@ -24,7 +24,7 @@ const Footer = () => {
           {/* À propos */}
           <div className="space-y-4">
             <img 
-              src="/logo.png" 
+              src={`${import.meta.env.BASE_URL}logo.png`} 
               alt="Logo Sengarmi"
               className="h-8 w-auto"
             />

@@ -28,7 +28,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-                src="/public/logo.png" 
+                src={`${import.meta.env.BASE_URL}logo.png`} 
                 alt="Sengarmi"
                 className="h-10 w-auto"
             />

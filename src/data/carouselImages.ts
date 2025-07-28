@@ -10,7 +10,7 @@ export interface CarouselImage {
 export const carouselImages: CarouselImage[] = [
   {
     id: 'logo-sengarmi',
-    src: '/logo.png',
+    src: `${import.meta.env.BASE_URL}logo.png`,
     alt: 'Logo SENGARMI - Votre partenaire de confiance pour tous vos besoins de services',
     title: 'SENGARMI',
     description: 'Logo SENGARMI - Vos Désirs sont des Ordres',
@@ -18,7 +18,7 @@ export const carouselImages: CarouselImage[] = [
   },
   {
     id: 'services-overview',
-    src: '/img.png',
+    src: `${import.meta.env.BASE_URL}img.png`,
     alt: 'Aperçu des services SENGARMI - Ménage, personnel spécialisé, bon linge',
     title: 'Nos Services Diversifiés',
     description: 'Ménage à domicile, personnel spécialisé, bon linge et bien plus encore',

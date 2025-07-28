@@ -28,7 +28,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename="/SENGARMI">
           <ScrollToTop />
           <ScrollToTopButton />
           <div className="min-h-screen flex flex-col">
