@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Clock, MessageSquare, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageSquare, Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,43 +15,226 @@ const Contact = () => {
     sujet: "",
     message: ""
   });
+
+  const [errors, setErrors] = useState({
+    nom: "",
+    email: "",
+    telephone: "",
+    sujet: "",
+    message: ""
+  });
   
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Configuration EmailJS
+  const EMAILJS_CONFIG = {
+    SERVICE_ID: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+    DESTINATION_EMAIL: import.meta.env.VITE_SENGARMI_EMAIL
+  };
+
+  // Initialisation d'EmailJS au chargement du composant
+  useEffect(() => {
+    if (typeof window !== 'undefined' && EMAILJS_CONFIG.PUBLIC_KEY) {
+      emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+    }
+  }, []);
+
+  // Fonctions de validation
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+
+    const phoneRegex = /^[\+]?[0-9\s\-\(\)]{7,15}$/;
+    return phone === "" || phoneRegex.test(phone);
+  };
+
+  const validateName = (name: string): boolean => {
+    return name.trim().length >= 2;
+  };
+
+  const validateMessage = (message: string): boolean => {
+    return message.trim().length >= 10;
+  };
+
+  const validateSubject = (subject: string): boolean => {
+    return subject.trim().length >= 3;
+  };
+
+  // Validation en temps réel
+  const validateField = (name: string, value: string) => {
+    let error = "";
+    
+    switch (name) {
+      case "nom":
+        if (!validateName(value)) {
+          error = "Le nom doit contenir au moins 2 caractères";
+        }
+        break;
+      case "email":
+        if (!validateEmail(value)) {
+          error = "Veuillez entrer une adresse email valide";
+        }
+        break;
+      case "telephone":
+        if (value && !validatePhone(value)) {
+          error = "Format de téléphone invalide";
+        }
+        break;
+      case "sujet":
+        if (value && !validateSubject(value)) {
+          error = "Le sujet doit contenir au moins 3 caractères";
+        }
+        break;
+      case "message":
+        if (!validateMessage(value)) {
+          error = "Le message doit contenir au moins 10 caractères";
+        }
+        break;
+    }
+    
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Validation en temps réel
+    validateField(name, value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation simple
-    if (!formData.nom || !formData.email || !formData.message) {
-      toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs obligatoires.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Simulation d'envoi
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
-
-    // Reset du formulaire
-    setFormData({
+    // Validation complète avant envoi
+    const newErrors = {
       nom: "",
       email: "",
       telephone: "",
       sujet: "",
       message: ""
-    });
-  };
+    };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    if (!validateName(formData.nom)) {
+      newErrors.nom = "Le nom doit contenir au moins 2 caractères";
+    }
+    if (!validateEmail(formData.email)) {
+      newErrors.email = "Veuillez entrer une adresse email valide";
+    }
+    if (formData.telephone && !validatePhone(formData.telephone)) {
+      newErrors.telephone = "Format de téléphone invalide";
+    }
+    if (formData.sujet && !validateSubject(formData.sujet)) {
+      newErrors.sujet = "Le sujet doit contenir au moins 3 caractères";
+    }
+    if (!validateMessage(formData.message)) {
+      newErrors.message = "Le message doit contenir au moins 10 caractères";
+    }
+
+    setErrors(newErrors);
+
+    // Vérifier s'il y a des erreurs
+    const hasErrors = Object.values(newErrors).some(error => error !== "");
+    if (hasErrors) {
+      toast({
+        title: "Erreur de validation",
+        description: "Veuillez corriger les erreurs dans le formulaire.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Vérification de la configuration EmailJS
+    if (!EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.TEMPLATE_ID || !EMAILJS_CONFIG.PUBLIC_KEY) {
+      toast({
+        title: "Configuration manquante",
+        description: "Veuillez configurer EmailJS dans le fichier .env.local",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Génération de la date et heure actuelles
+      const now = new Date();
+      const date = now.toLocaleDateString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      const time = now.toLocaleTimeString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+      // Préparation des paramètres pour EmailJS
+      const templateParams = {
+        from_name: formData.nom,
+        from_email: formData.email,
+        from_phone: formData.telephone || "Non renseigné",
+        subject: formData.sujet || "Message depuis le site web Sengarmi",
+        message: formData.message,
+        to_email: EMAILJS_CONFIG.DESTINATION_EMAIL,
+        reply_to: formData.email,
+        date: date,
+        time: time
+      };
+
+      // Envoi de l'email via EmailJS
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+
+      if (response.status === 200) {
+        toast({
+          title: "Message envoyé avec succès !",
+          description: "Nous vous répondrons dans les plus brefs délais.",
+        });
+
+        // Reset du formulaire
+        setFormData({
+          nom: "",
+          email: "",
+          telephone: "",
+          sujet: "",
+          message: ""
+        });
+        setErrors({
+          nom: "",
+          email: "",
+          telephone: "",
+          sujet: "",
+          message: ""
+        });
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'envoi:", error);
+      toast({
+        title: "Erreur d'envoi",
+        description: "Une erreur s'est produite lors de l'envoi du message. Veuillez réessayer.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const infosContact = [
@@ -117,8 +301,12 @@ const Contact = () => {
                       value={formData.nom}
                       onChange={handleChange}
                       placeholder="Votre nom"
+                      className={errors.nom ? "border-red-500" : ""}
                       required
                     />
+                    {errors.nom && (
+                      <p className="text-red-500 text-xs mt-1">{errors.nom}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="telephone" className="block text-sm font-medium text-foreground mb-2">
@@ -130,8 +318,12 @@ const Contact = () => {
                       type="tel"
                       value={formData.telephone}
                       onChange={handleChange}
-                      placeholder="Votre numéro"
+                      placeholder="Votre numéro de téléphone"
+                      className={errors.telephone ? "border-red-500" : ""}
                     />
+                    {errors.telephone && (
+                      <p className="text-red-500 text-xs mt-1">{errors.telephone}</p>
+                    )}
                   </div>
                 </div>
 
@@ -145,9 +337,13 @@ const Contact = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="votre.email@exemple.fr"
+                    placeholder="votre.email@exemple.sn"
+                    className={errors.email ? "border-red-500" : ""}
                     required
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
                 </div>
 
                 <div>
@@ -161,7 +357,11 @@ const Contact = () => {
                     value={formData.sujet}
                     onChange={handleChange}
                     placeholder="Objet de votre message"
+                    className={errors.sujet ? "border-red-500" : ""}
                   />
+                  {errors.sujet && (
+                    <p className="text-red-500 text-xs mt-1">{errors.sujet}</p>
+                  )}
                 </div>
 
                 <div>
@@ -175,13 +375,21 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Décrivez votre demande, vos besoins ou posez votre question..."
                     rows={6}
+                    className={errors.message ? "border-red-500" : ""}
                     required
                   />
+                  {errors.message && (
+                    <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+                  )}
                 </div>
 
-                <Button type="submit" variant="cta" size="lg" className="w-full">
-                  <Send className="mr-2 h-5 w-5" />
-                  Envoyer le message
+                <Button type="submit" variant="cta" size="lg" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  ) : (
+                    <Send className="mr-2 h-5 w-5" />
+                  )}
+                  {isLoading ? "Envoi en cours..." : "Envoyer le message"}
                 </Button>
 
                 <p className="text-xs text-muted-foreground">
