@@ -72,7 +72,7 @@ const NotreApplication = () => {
         <section className="text-center mb-20 animate-fade-in">
           <div className="max-w-4xl mx-auto">
             <img 
-              src="/logo.png" 
+              src={`${import.meta.env.BASE_URL}logo.png`}
               alt="Logo Sengarmi"
               className="h-12 w-auto mx-auto mb-6"
             />
