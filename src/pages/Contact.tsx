@@ -5,6 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock, MessageSquare, Send, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { usePopup } from "@/hooks/usePopup";
+import AnimatedPopup from "@/components/AnimatedPopup";
 import emailjs from 'emailjs-com';
 
 const Contact = () => {
@@ -26,6 +28,7 @@ const Contact = () => {
   
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { popup, showSuccess, showError, hidePopup } = usePopup();
 
   // Configuration EmailJS
   const EMAILJS_CONFIG = {
@@ -149,21 +152,19 @@ const Contact = () => {
     // Vérifier s'il y a des erreurs
     const hasErrors = Object.values(newErrors).some(error => error !== "");
     if (hasErrors) {
-      toast({
-        title: "Erreur de validation",
-        description: "Veuillez corriger les erreurs dans le formulaire.",
-        variant: "destructive"
-      });
+      showError(
+        "Erreur de validation",
+        "Veuillez corriger les erreurs dans le formulaire."
+      );
       return;
     }
 
     // Vérification de la configuration EmailJS
     if (!EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.TEMPLATE_ID || !EMAILJS_CONFIG.PUBLIC_KEY) {
-      toast({
-        title: "Configuration manquante",
-        description: "Veuillez configurer EmailJS dans le fichier .env.local",
-        variant: "destructive"
-      });
+      showError(
+        "Configuration manquante",
+        "Veuillez configurer EmailJS dans le fichier .env.local"
+      );
       return;
     }
 
@@ -204,10 +205,10 @@ const Contact = () => {
       );
 
       if (response.status === 200) {
-        toast({
-          title: "Message envoyé avec succès !",
-          description: "Nous vous répondrons dans les plus brefs délais.",
-        });
+        showSuccess(
+          "Message envoyé avec succès !",
+          "Nous vous répondrons dans les plus brefs délais."
+        );
 
         // Reset du formulaire
         setFormData({
@@ -227,11 +228,10 @@ const Contact = () => {
       }
     } catch (error) {
       console.error("Erreur lors de l'envoi:", error);
-      toast({
-        title: "Erreur d'envoi",
-        description: "Une erreur s'est produite lors de l'envoi du message. Veuillez réessayer.",
-        variant: "destructive"
-      });
+      showError(
+        "Erreur d'envoi",
+        "Une erreur s'est produite lors de l'envoi du message. Veuillez réessayer."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -571,6 +571,16 @@ const Contact = () => {
           </div>
         </section>
       </div>
+      
+      {/* Popup animé */}
+      <AnimatedPopup
+        isOpen={popup.isOpen}
+        onClose={hidePopup}
+        title={popup.title}
+        message={popup.message}
+        type={popup.type}
+        duration={popup.duration}
+      />
     </div>
   );
 };

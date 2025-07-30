@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { motion } from "framer-motion";
 
 import { 
   Sparkles, 
@@ -35,6 +36,7 @@ import {
 import { temoignages } from "@/data/temoignages";
 import { getCarouselImages } from "@/data/carouselImages";
 import { ImageCarousel } from "@/components/ImageCarousel";
+import Typewriter from "@/components/Typewriter";
 import { useEffect, useRef, useState } from "react";
 import { useCallback } from "react";
 
@@ -98,36 +100,213 @@ const Accueil = () => {
 
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Section Hero */}
-      <section className="bg-gradient-to-br from-primary/5 to-secondary py-20 lg:py-32">
+      <section className="bg-gradient-to-br from-primary/5 to-secondary py-20 lg:py-32 overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-fade-in">
-              <h1 className="text-4xl lg:text-6xl font-bold text-primary leading-tight">
-                Sengarmi
-              </h1>
-              <p className="text-xl lg:text-2xl text-slogan font-medium">
-                Vos Désirs sont des Ordres
-              </p>
+              <motion.h1 
+                className="text-4xl lg:text-6xl xl:text-7xl font-bold text-primary leading-tight relative"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+              >
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  S
+                </motion.span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  e
+                </motion.span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  n
+                </motion.span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                >
+                  g
+                </motion.span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  a
+                </motion.span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
+                  r
+                </motion.span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  m
+                </motion.span>
+                <motion.span
+                  className="inline-block"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.9 }}
+                >
+                  i
+                </motion.span>
+                
+                {/* Effet de particules flottantes */}
+                <motion.div
+                  className="absolute inset-0 pointer-events-none overflow-hidden"
+                  animate={{ 
+                    rotate: 360
+                  }}
+                  transition={{ 
+                    duration: 20, 
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                  style={{ transformOrigin: "center" }}
+                >
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-2 h-2 bg-primary/30 rounded-full"
+                      style={{
+                        left: `${20 + i * 15}%`,
+                        top: `${10 + (i % 2) * 80}%`
+                      }}
+                      animate={{ 
+                        y: [0, -10, 0],
+                        opacity: [0.2, 0.6, 0.2],
+                        scale: [1, 1.2, 1]
+                      }}
+                      transition={{ 
+                        duration: 3,
+                        delay: i * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              </motion.h1>
+              <div className="relative">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-slogan font-medium relative px-4 sm:px-0"
+                >
+                  <Typewriter 
+                    text="Vos Désirs sont des Ordres" 
+                    speed={30} 
+                    delay={800}
+                    className="text-slogan relative z-10 break-words tracking-tight sm:tracking-normal lg:tracking-wide"
+                    showCursor={true}
+                    repeat={true}
+                    repeatDelay={3000}
+                    letterSpacing="0.05em"
+                  />
+                  
+                  {/* Effet de glow en arrière-plan */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-slogan/20 to-transparent blur-xl -z-10 overflow-hidden"
+                    animate={{ 
+                      opacity: [0.2, 0.4, 0.2],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    style={{ transformOrigin: "center" }}
+                  />
+                </motion.div>
+              </div>
               <p className="text-lg text-muted-foreground max-w-xl">
                 Votre partenaire de confiance pour tous vos besoins de services. 
                 Des particuliers aux professionnels, nous répondons à tous vos besoins 
                 avec excellence et professionnalisme.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="default" size="lg" asChild>
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-4"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Button variant="default" size="lg" asChild className="relative overflow-hidden group">
                   <Link to="/notre-application">
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"
+                        initial={{ x: "-100%" }}
+                        whileHover={{ x: "100%" }}
+                        transition={{ duration: 0.6 }}
+                      />
                     <Download className="mr-2 h-5 w-5" />
                     Télécharger l'app
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="hover:bg-primary hover:text-primary-foreground hover:border-primary" asChild>
-                  <Link to="/nos-services">Découvrir nos services</Link>
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Button variant="outline" size="lg" className="hover:bg-primary hover:text-primary-foreground hover:border-primary relative overflow-hidden group" asChild>
+                    <Link to="/nos-services">
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent"
+                        initial={{ x: "-100%" }}
+                        whileHover={{ x: "100%" }}
+                        transition={{ duration: 0.6 }}
+                      />
+                      Découvrir nos services
+                    </Link>
                 </Button>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
-            <div className="flex justify-center lg:justify-end">
+            <motion.div 
+              className="flex justify-center lg:justify-end"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="relative"
+              >
                               <ImageCarousel  
                 images={carouselImages}
                 className="w-full max-w-5xl"
@@ -135,7 +314,21 @@ const Accueil = () => {
                 autoPlayInterval={5000}
                 showNavigation={true}
               />
-            </div>
+                
+                {/* Effet de bordure animée */}
+                <motion.div
+                  className="absolute inset-0 border-2 border-primary/20 rounded-lg"
+                  animate={{ 
+                    borderColor: ["rgba(var(--primary), 0.2)", "rgba(var(--primary), 0.6)", "rgba(var(--primary), 0.2)"]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>

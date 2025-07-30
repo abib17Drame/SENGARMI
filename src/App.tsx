@@ -17,6 +17,7 @@ import MentionsLegales from "./pages/MentionsLegales";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import WhatsAppButton from "./components/WhatsAppButton";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import { ThemeProvider } from "./components/ThemeProvider";
 
@@ -31,6 +32,7 @@ const App = () => (
         <BrowserRouter basename="/SENGARMI">
           <ScrollToTop />
           <ScrollToTopButton />
+          <WhatsAppButton />
           <div className="min-h-screen flex flex-col">
             <Navigation />
             <main className="flex-1">
