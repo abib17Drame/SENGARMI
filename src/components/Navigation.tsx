@@ -39,7 +39,7 @@ const Navigation = () => {
               <Link
                 key={item.lien}
                 to={item.lien}
-                className={`text-sm font-medium transition-colors hover:text-accent ${
+                className={`text-lg font-medium transition-colors hover:text-accent ${
                   isActive(item.lien) 
                     ? "text-accent border-b-2 border-accent" 
                     : "text-primary-foreground"
@@ -49,9 +49,9 @@ const Navigation = () => {
               </Link>
             ))}
             <ThemeToggle />
-            <Button variant="cta" size="sm" asChild>
+            {/* <Button variant="cta" size="sm" asChild>
               <Link to="/notre-application">Télécharger l'app</Link>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Contrôles mobile */}
@@ -62,10 +62,10 @@ const Navigation = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="text-primary-foreground hover:text-accent hover:bg-accent/10"
+              className="text-primary-foreground hover:text-accent hover:bg-accent/20 p-2 rounded-lg border border-primary-foreground/20 hover:border-accent/50 transition-all duration-200"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+              {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
             </Button>
           </div>
         </div>
@@ -78,7 +78,7 @@ const Navigation = () => {
                 <Link
                   key={item.lien}
                   to={item.lien}
-                  className={`block px-3 py-2 text-base font-medium transition-colors hover:text-accent ${
+                  className={`block px-3 py-2 text-xl font-medium transition-colors hover:text-accent ${
                     isActive(item.lien) 
                       ? "text-accent bg-accent/10" 
                       : "text-primary-foreground"

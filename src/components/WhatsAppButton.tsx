@@ -14,7 +14,7 @@ const WhatsAppButton = () => {
       {/* Bouton principal */}
       <button
         onClick={handleClick}
-        className="relative w-16 h-16 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl flex items-center justify-center text-white transition-all duration-300 group"
+        className="relative w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl flex items-center justify-center text-white transition-all duration-300 group"
       >
         {/* Icône WhatsApp */}
         <div className="relative z-10">
