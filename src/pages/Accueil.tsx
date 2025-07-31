@@ -63,7 +63,7 @@ const Accueil = () => {
     {
       icone: Home,
       titre: "Services de Ménage",
-      description: "Ménage à domicile, bureaux, hôtels, hôpitaux et événementiel. Des solutions complètes pour tous vos besoins d'entretien."
+      description: "Ménage à domicile, bureaux, hôtels, hôpitaux et événementiel. Panier ménagère et solutions complètes pour tous vos besoins d'entretien."
     },
     {
       icone: Users,
@@ -107,7 +107,7 @@ const Accueil = () => {
               <p className="text-xl lg:text-2xl text-slogan font-medium">
                 Vos Désirs sont des Ordres
               </p>
-              <p className="text-lg text-muted-foreground max-w-xl">
+              <p className="text-lg text-muted-foreground max-w-xl text-justify">
                 Votre partenaire de confiance pour tous vos besoins de services. 
                 Des particuliers aux professionnels, nous répondons à tous vos besoins 
                 avec excellence et professionnalisme.
@@ -174,9 +174,13 @@ const Accueil = () => {
                     <h3 className="text-xl font-bold text-foreground mb-4">
                       {service.titre}
                     </h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
-                      {service.description}
-                    </p>
+                        <div className="mb-6 flex justify-center">
+                        <img 
+                          src= {`${import.meta.env.BASE_URL}s.jpg`}
+                          alt={`Logo SENGARMI - ${service.titre}`}
+                          className="h-45 w-auto object-contain opacity-100 group-hover:opacity-100 transition-opacity duration-300"
+                        />
+                      </div>
                     <Link to={`/nos-services${anchor}`} className="inline-block">
                       <Button 
                         variant="outline" 

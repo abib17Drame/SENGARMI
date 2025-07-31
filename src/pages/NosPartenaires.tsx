@@ -7,33 +7,21 @@ const NosPartenaires = () => {
       icone: Building,
       titre: "Industries Alimentaires",
       description: "Collaboration avec les industries alimentaires pour des services de nettoyage spécialisés et l'entretien des locaux de production.",
-      services: [
-        
-      ]
     },
     {
       icone: FlaskConical,
       titre: "Industries Chimiques",
       description: "Partenariat avec les industries chimiques pour des services d'entretien adaptés aux environnements sensibles.",
-      services: [
-        
-      ]
     },
     {
       icone: Stethoscope,
       titre: "Médecins",
       description: "Collaboration avec les professionnels de santé pour l'entretien des cabinets médicaux et cliniques.",
-      services: [
-        
-      ]
     },
     {
       icone: Scale,
       titre: "Avocats",
       description: "Partenariat avec les cabinets d'avocats pour l'entretien professionnel des espaces de travail.",
-      services: [
-        
-      ]
     }
   ];
 
@@ -97,15 +85,6 @@ const NosPartenaires = () => {
                 <CardContent>
                   <p className="text-muted-foreground mb-4">{partenaire.description}</p>
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground">Services proposés :</h4>
-                    <ul className="space-y-1">
-                      {partenaire.services.map((service, i) => (
-                        <li key={i} className="text-sm text-muted-foreground flex items-center">
-                          <div className="w-1 h-1 bg-primary rounded-full mr-2"></div>
-                          {service}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </CardContent>
               </Card>

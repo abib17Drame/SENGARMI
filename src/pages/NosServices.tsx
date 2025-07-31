@@ -28,6 +28,11 @@ const servicesMenage = [
     icone: Calendar,
     titre: "Entretien événementiel",
     description: "Nettoyage avant, pendant et après vos événements privés ou professionnels."
+  },
+  {
+    icone: Shirt,
+    titre: "Panier ménagère",
+    description: "Commandez nos paniers avec tous les produits et accessoires ménagers essentiels pour vos tâches de nettoyage quotidiennes."
   }
 ];
 

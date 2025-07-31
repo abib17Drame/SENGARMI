@@ -42,6 +42,8 @@ const Navigation = () => {
                 className={`text-lg font-medium transition-colors hover:text-accent ${
                   isActive(item.lien) 
                     ? "text-accent border-b-2 border-accent" 
+                                         : item.nom === "Notre app"
+                     ? "text-accent font-bold bg-accent/10 px-4 py-2 rounded-lg hover:bg-accent/20 hover:text-accent"
                     : "text-primary-foreground"
                 }`}
               >
@@ -81,6 +83,8 @@ const Navigation = () => {
                   className={`block px-3 py-2 text-xl font-medium transition-colors hover:text-accent ${
                     isActive(item.lien) 
                       ? "text-accent bg-accent/10" 
+                                             : item.nom === "Notre app"
+                       ? "text-accent font-bold bg-accent/10 rounded-lg hover:bg-accent/20 hover:text-accent"
                       : "text-primary-foreground"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
@@ -88,13 +92,13 @@ const Navigation = () => {
                   {item.nom}
                 </Link>
               ))}
-              <div className="px-3 py-2">
+              {/* <div className="px-3 py-2">
                 <Button variant="cta" size="sm" className="w-full" asChild>
                   <Link to="/notre-application" onClick={() => setIsMenuOpen(false)}>
                     Télécharger l'app
                   </Link>
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         )}
