@@ -176,20 +176,23 @@ const Accueil = () => {
                     </h3>
                         <div className="mb-6 flex justify-center">
                         <img 
-                          src= {`${import.meta.env.BASE_URL}s.jpg`}
+                          src= {`${import.meta.env.BASE_URL}${service.titre === "Services de Ménage" ? "menage.png" : service.titre === "Personnel Spécialisé" ? "personnel.png" : "bon_linge.jpg"}`}
                           alt={`Logo SENGARMI - ${service.titre}`}
                           className="h-45 w-auto object-contain opacity-100 group-hover:opacity-100 transition-opacity duration-300"
                         />
                       </div>
-                    <Link to={`/nos-services${anchor}`} className="inline-block">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-300"
-                      >
-                        Détails
-                      </Button>
-                    </Link>
+                                         <Link to={`/nos-services${anchor}`} className="inline-block">
+                       <Button 
+                         variant="outline" 
+                         size="sm" 
+                         className="group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-300 flex items-center gap-2"
+                       >
+                         Découvrir
+                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                         </svg>
+                       </Button>
+                     </Link>
                   </CardContent>
                 </Card>
               );
