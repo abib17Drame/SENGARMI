@@ -35,6 +35,7 @@ import {
 import { temoignages } from "@/data/temoignages";
 import { getCarouselImages } from "@/data/carouselImages";
 import { ImageCarousel } from "@/components/ImageCarousel";
+import ServiceCarousel from "@/components/ServiceCarousel";
 import { useEffect, useRef, useState } from "react";
 import { useCallback } from "react";
 
@@ -174,13 +175,15 @@ const Accueil = () => {
                     <h3 className="text-xl font-bold text-foreground mb-4">
                       {service.titre}
                     </h3>
-                        <div className="mb-6 flex justify-center">
-                        <img 
-                          src= {`${import.meta.env.BASE_URL}${service.titre === "Services de Ménage" ? "menage.png" : service.titre === "Personnel Spécialisé" ? "personnel.png" : "bon_linge.jpg"}`}
-                          alt={`Logo SENGARMI - ${service.titre}`}
-                          className="h-45 w-auto object-contain opacity-100 group-hover:opacity-100 transition-opacity duration-300"
-                        />
-                      </div>
+                    <div className="mb-6 flex justify-center">
+                      <ServiceCarousel 
+                        serviceType={
+                          service.titre === "Services de Ménage" ? "menage" :
+                          service.titre === "Personnel Spécialisé" ? "personnel" : "linge"
+                        }
+                        className="w-full max-w-xs"
+                      />
+                    </div>
                                          <Link to={`/nos-services${anchor}`} className="inline-block">
                        <Button 
                          variant="outline" 
